@@ -80,7 +80,7 @@ class ProbCalculator(IProbCalculator):
         """
         if (index, data_value) in self.__memo_data_index:
             return self.__memo_data_index[(index, data_value)]
-        data_num = self.data_holder.extract_data_index(index, data_value)
+        data_num = self.data_holder.extract_data_index(index, data_value).count
         prob = data_num/self.data_holder.count
         self.__memo_prob_data_index_in_class[(index, data_value)] = prob
         return prob
@@ -96,10 +96,9 @@ class ProbCalculator(IProbCalculator):
         """
         if (index, data_value, class_number) in self.__memo_prob_class:
             return self.__memo_prob_class[(index, data_value, class_number)]
-        prob_data_value_index = self.prob_data_index(index, data_value)
-        prob_class = self.prob_class(class_number)
-        prob = prob_data_value_index*prob_class
-        self.__memo_prob_class[(index, data_value, class_number)] = prob
+        data_num = self.data_holder.extract_class_and_index(index, data_value, class_number).count
+        prob = data_num/self.data_holder.count
+        self.__memo_prob_data_index_in_class[(index, data_value)] = prob
         return prob
 
     def prob_data_index_in_class(self, index: int, data_value: int, class_number: int)->float:
@@ -112,6 +111,9 @@ class ProbCalculator(IProbCalculator):
         """
         if (index, data_value, class_number) in self.__memo_prob_data_index_in_class:
             return self.__memo_prob_data_index_in_class[(index, data_value, class_number)]
+        prob_class = self.prob_class(class_number)
+        if prob_class == 0:
+            return 0
         prob = self.prob_data_index_and_class(index, data_value, class_number)/self.prob_class(class_number)
         self.__memo_prob_data_index_in_class[(index, data_value, class_number)] = prob
         return prob

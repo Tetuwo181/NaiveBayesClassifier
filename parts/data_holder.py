@@ -16,11 +16,11 @@ class DataHolder(object):
 
     @property
     def data_set(self):
-        return self.__data_frame["data"]
+        return self.__data_frame["data"].values
 
     @property
     def class_set(self):
-        return self.__data_frame["class"]
+        return self.__data_frame["class"].values
 
     @property
     def count(self):

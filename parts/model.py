@@ -18,7 +18,7 @@ class Model(object):
         """
         vectorized_calculator = np.frompyfunc(self.__prob_calculator.prob_data_index_in_class, 3, 1)
         index_set = np.arange(len(data))
-        prob_set = vectorized_calculator(data, index_set, class_number)
+        prob_set = vectorized_calculator(index_set, data, class_number)
         return np.prod(prob_set)
 
     def predict(self, data: np.ndarray)->int:
@@ -27,8 +27,17 @@ class Model(object):
         :param data: 算出対象となるデータ
         :return: 一番適合度が高いクラス
         """
-        vectorized_fitness_calculator = np.frompyfunc(self.__prob_calculator.prob_data_index_in_class, 2, 1)
-        fitness_set = vectorized_fitness_calculator(data, self.__class_index_set)
+        fitness_set = np.array([self.calc_fitness_value(data, index) for index in self.__class_index_set])
         return np.argmax(fitness_set)
+
+    def test(self, data_set: np.ndarray, class_set: np.ndarray)->float:
+        predicted_set = np.array([self.predict(data) for data in data_set])
+        # 教師データと予測されたデータの差が0でなければ誤判定
+        diff = class_set - predicted_set
+        return np.sum(diff == 0)/len(data_set)
+
+
+
+
 
 
