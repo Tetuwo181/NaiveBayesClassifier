@@ -1,4 +1,5 @@
 from parts.prob_calculator import IProbCalculator
+from parts import data_holder as dh
 import numpy as np
 
 
@@ -20,7 +21,7 @@ class Model(object):
         prob_set = vectorized_calculator(data, index_set, class_number)
         return np.prod(prob_set)
 
-    def predict_class(self, data: np.ndarray)->int:
+    def predict(self, data: np.ndarray)->int:
         """
         モデルの適合度から該当するクラスを算出する
         :param data: 算出対象となるデータ
