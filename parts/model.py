@@ -19,7 +19,7 @@ class Model(object):
         vectorized_calculator = np.frompyfunc(self.__prob_calculator.prob_data_index_in_class, 3, 1)
         index_set = np.arange(len(data))
         prob_set = vectorized_calculator(index_set, data, class_number)
-        return np.prod(prob_set)
+        return np.prod(prob_set)*self.__prob_calculator.prob_class(class_number)
 
     def predict(self, data: np.ndarray)->int:
         """
