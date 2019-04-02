@@ -9,7 +9,7 @@ class Model(object):
         self.__class_index_set = np.arange(class_num)
         self.__class_num = class_num
 
-    def calc_fitness_value(self, data: np.ndarray, class_number: int)->float:
+    def calc_fitness_value(self, data: np.ndarray, class_number: int)-> float:
         """
         モデルの適合度を算出する
         :param data:
@@ -19,7 +19,7 @@ class Model(object):
         vectorized_calculator = np.frompyfunc(self.__prob_calculator.prob_data_index_in_class, 3, 1)
         index_set = np.arange(len(data))
         prob_set = vectorized_calculator(index_set, data, class_number)
-        return np.prod(prob_set)
+        return np.prod(prob_set)*self.__prob_calculator.prob_class(class_number)
 
     def predict(self, data: np.ndarray)->int:
         """
