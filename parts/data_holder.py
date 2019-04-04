@@ -8,7 +8,8 @@ class DataHolder(object):
     def __init__(self, data_set, class_set):
         """
         コンストラクタ
-        :param data_set: 学習に使う元となるデータセット numpy配列を保持したリストもしくはそれをnumpy配列にしたもの。各要素はint型
+        :param data_set: 学習に使う元となるデータセット numpy配列を保持したリストもしくはそれをnumpy配列にしたもの
+        　　　　　　　　 各要素はint型
         :param class_set 各データのクラスのセット
         :return:
         """
@@ -58,19 +59,3 @@ class DataHolder(object):
         """
         return self.extract_data_index(index, data_value).extract_class(class_number)
 
-
-def build_df(data_set: pd.core.frame.DataFrame):
-    return DataHolder(data_set["data_set"], data_set["class"])
-
-
-def build(data_set, class_set=None):
-    """
-    引数が1つの時はpandasのデータフレームから
-    2津の時は1番目がデータの値で2番目がクラスの値のセットとなる
-    :param data_set:
-    :param class_set:
-    :return:
-    """
-    if class_set is None:
-        return build_df(data_set)
-    return DataHolder(data_set, class_set)

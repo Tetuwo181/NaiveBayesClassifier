@@ -37,7 +37,7 @@ class IProbCalculator(metaclass=ABCMeta):
     @abstractmethod
     def prob_data_index_in_class(self, index: int, data_value: int, class_number: int)->float:
         """
-        指定したクラスに所属しているという条件で指定したインデックスのデータが指定した値になっているという条件付き確率を求める
+        指定したクラスに所属しているという条件で指定したインデックスのデータが指定した値になっている条件付き確率を求める
         :param index:データのインデックス
         :param data_value:データの値
         :param class_number:所属しているクラス

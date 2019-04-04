@@ -6,7 +6,9 @@ def sample(divide_num: int, min_value: float=0, max_value: float=1.0)->Callable[
     """
     0から1.0までの値に対して入力した数の分だけ分割する
     :param divide_num: 分割数
-    :return:
+    :param min_value: 分割する値の最小値
+    :param max_value: 分割する値の最大値
+    :return:　分割を行う関数
     """
     def use_func(value: float)->int:
         boundary_set = np.linspace(min_value, max_value, divide_num+1)
