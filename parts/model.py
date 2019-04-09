@@ -25,10 +25,12 @@ class Model(object):
         """
         モデルの適合度から該当するクラスを算出する
         :param data: 算出対象となるデータ
-        :return: 一番適合度が高いクラス
+        :return: 一番適合度が高いクラス。判定不能な場合,-1を返す
         """
         fitness_set = np.array([self.calc_fitness_value(data, index) for index in self.__class_index_set])
-        return np.argmax(fitness_set)
+        result_index = np.argmax(fitness_set)
+        # 確率なので最大値が0以下になることはあり得ない。0以下になるときは判定不能
+        return result_index if fitness_set[result_index] > 0 else -1
 
     def test(self, data_set: np.ndarray, class_set: np.ndarray)->float:
         predicted_set = np.array([self.predict(data) for data in data_set])
